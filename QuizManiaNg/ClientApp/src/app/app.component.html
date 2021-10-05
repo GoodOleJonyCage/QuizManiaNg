@@ -1,0 +1,36 @@
+<body>
+  <div>
+    <div class="visible">
+      <div id="header_in">
+        <div id="logo_in"><a href="index.html"><img src="./assets/img/logo_black.png" width={160} height={48} alt="Quote" /></a></div>
+        <app-nav-menu></app-nav-menu>
+      </div>
+      <div class="wrapper_in">
+        <div class="container-fluid">
+          <div class="tab-content">
+            <div class="tab-pane fade show active">
+              <div class="subheader" id="quote" ></div>
+              <div class="row">
+                <aside class="col-xl-3 col-lg-4">
+                  <h2>ABC</h2>
+                  <p class="lead">Quiz # 12</p>
+                  <h2>QA</h2>
+                  <p class="lead">Quiz # 23</p>
+                  <ul class="list_ok">
+                    <li>Please select at least one correct answer.</li>
+                    <li>Use the Next button tp proceed forward.</li>
+                    <li>Use the Back button tp move backwards.</li>
+                  </ul>
+                </aside>
+                <div class="col-xl-9 col-lg-7">
+                  <router-outlet></router-outlet>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
