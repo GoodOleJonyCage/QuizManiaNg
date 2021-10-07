@@ -1,0 +1,38 @@
+<div class="noti-section-one noti-design-one fadeInLeft animated">
+  <div class="noti-layout-three">
+    <div class="noti-layout-three__wrapper">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="noti-layout-three__logo-wrap">
+            <img src="./assets/Notifications/assets/images/butterfly.png"
+                 class="img-responsive noti-layout-three__sticker-image " />
+            <img src="./assets/Notifications/assets/images/index1.png"
+                 class="img-responsive noti-layout-three__logo" />
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="noti-layout-three__para-wrap">
+            <h3><b>{{name}}</b></h3>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="noti-layout-three__check-in-button">
+            <a class="button" [routerLink]="['/quiz']" [queryParams]="{id: this.id, name: this.name }">
+              <button type="button" class="noti-layout-three__check-in" >
+                <!--onClick={(e) =>{ setclasss(false) }}-->
+                Start Quiz
+              </button>
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="noti-layout-three__button-wrap">
+            <a href="#" class="anchor-btn close-one">
+              Best of Luck !
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

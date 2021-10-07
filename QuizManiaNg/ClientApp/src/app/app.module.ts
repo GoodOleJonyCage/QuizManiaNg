@@ -13,6 +13,8 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { QuizComponent } from 'src/app/quiz/quiz.component'
+import { StartquizComponent } from 'src/app/startquiz/startquiz.component'
+import { QuizitemComponent } from './quizitem/quizitem.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { QuizComponent } from 'src/app/quiz/quiz.component'
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    QuizComponent
+    QuizComponent,
+    StartquizComponent,
+    QuizitemComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -31,7 +35,9 @@ import { QuizComponent } from 'src/app/quiz/quiz.component'
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
-      { path: 'quiz', component: QuizComponent },
+      { path: 'quiz', component: QuizComponent, pathMatch: 'full' },
+      { path: 'quizitem', component: QuizitemComponent, pathMatch: 'full' },
+      { path: 'startquiz', component: StartquizComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent },
     ])
   ],

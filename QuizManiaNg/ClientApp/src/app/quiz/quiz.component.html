@@ -1,16 +1,50 @@
-<div>
-  <h3 class="text-center">Start a Quiz!</h3>
-  <div class="row">
-    <div class="col-md-6" *ngFor="let q of quizes; index as i">
-      <div class="box_feat" [id]="'icon_' + GetImageIndex(i)">
-          <h3 class="mt-3 black"><b>{{q.name}}</b></h3>
-          <div class="quizinfo">
-            <span class="mr-2">Questions <span class="color-black">{{q.questions.length}}</span></span>
-            <div>Answers <span class="color-black">{{GetAnswerCount(q.questions)}}</span></div>
-            <div>Attempts <span class="color-black">{{q.attempts}}</span></div>
-            <div>Best Score <span class="color-black">{{q.bestScore}}%</span></div>
+<div class="col-xl-9 col-lg-8 noborder container">
+  <div class="wizard-branch wizard-wrapper">
+    <div class="step wizard-step cumoveToNextQuestionrrent">
+      <div style="height: 50px; width: 100%; background-color: whitesmoke; border-radius: 40px; margin: 50px;">
+        <div style="height: 100%; width: 50%; background-color: rgb(255, 244, 227); border-radius: 40px; text-align: center; display: flex; justify-content: center; align-items: center;">
+          <span style="padding: 10px; color: black; font-weight: 900; font-size: 20px;">50%</span>
+        </div>
+      </div><div class="">
+        <div id="wizard_container">
+          <input id="website" name="website" type="text" value="true">
+          <div>
+            <div id="middle-wizard">
+              <div class="step">
+                <div>
+                  <div class="quizquestionitem mb-3">
+                    <span class="mr-2">Q)-<span>2/2</span></span>
+                    <h5 class="main_question p-0 m-0">What gives you energy everyday in the morning</h5>
+                  </div>
+                  <div class="form-group radio_questions ">
+                    <label class=" labelflex">
+                      Money
+                      <input name="Group1" type="radio" class="iradio_square-yellow icheck required" value="Money">
+                    </label>
+                  </div>
+                  <div class="form-group radio_questions ">
+                    <label class=" labelflex">
+                      Love
+                      <input name="Group1" type="radio" class="iradio_square-yellow icheck required" value="Love">
+                    </label>
+                  </div>
+                  <div class="form-group radio_questions ">
+                    <label class=" labelflex">
+                      Religion
+                      <input name="Group1" type="radio" class="iradio_square-yellow icheck required" value="Religion">
+                    </label>
+                  </div>
+                </div><div></div>
+              </div>
+            </div><div id="bottom-wizard">
+              <button type="button" name="backward"
+                      class="backward">
+                Back
+              </button><button type="submit" name="process" class="submit">Submit</button>
+            </div>
           </div>
         </div>
+      </div>
     </div>
   </div>
 </div>

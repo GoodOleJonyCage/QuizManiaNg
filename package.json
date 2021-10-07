@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@angular/router": "^12.2.9",
+    "angular-new-router": "github:angular/router"
+  }
+}

@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpParams, HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-quiz',
@@ -9,38 +10,26 @@ import { HttpClient } from '@angular/common/http'
 
 export class QuizComponent {
 
-  public quizes: Quiz[];
+  id: any;
+  name: string;
+ 
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private activatedRoute: ActivatedRoute) {
 
-  public GetAnswerCount(questions) {
-
-    var count = 0;
-    for (var q = 0; q < questions.length; q++) {
-      for (var a = 0; a < questions[q].answers.length; a++) {
-        count++;
+    this.activatedRoute.queryParams.subscribe(
+      params => {
+        this.id = params['id'];
+        this.name = params['name'];
       }
-    }
-    return count;
-  }
+    )
 
-  public GetImageIndex(index) {
+    let params = new HttpParams();
+    params = params.append('quizid', this.id);
 
-    let value = (index + 1) % 4;
-    if (value == 0)
-      value = 4;
-    return value;
-  }
-
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Quiz[]>(baseUrl + 'quiz/quizes').subscribe(result => {
-      this.quizes = result;
-    }, error => console.error(error));
+    http.get<any>('quiz', { params })
+      .subscribe(result => {
+        console.log(result);
+      }, error => console.error(error));
   }
 }
 
-interface Quiz {
-  id: number,
-  name: string,
-  questions: [],
-  bestScore: 0
-  attempts: 0
-}
+
