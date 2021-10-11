@@ -390,10 +390,11 @@ namespace QuizManiaNg.Controllers
             return vm;
         }
 
-        public ViewModels.Quiz Get([FromBody] System.Text.Json.JsonElement param)
+        [Route("quizitems")]
+        public ViewModels.Quiz Get(int quizid)
         {
             QuizManiaNg.ViewModels.Quiz vm = new ViewModels.Quiz();
-            vm.ID = Int32.Parse(param.GetProperty("quizid").ToString());
+            vm.ID = quizid;
             using (QuizMasterContext context = new QuizMasterContext())
             {
                 vm = (from q in context.Quiz

@@ -15,6 +15,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { QuizComponent } from 'src/app/quiz/quiz.component'
 import { StartquizComponent } from 'src/app/startquiz/startquiz.component'
 import { QuizitemComponent } from './quizitem/quizitem.component';
+import { QuizButtonsComponent } from './quiz-buttons/quiz-buttons.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { QuizitemComponent } from './quizitem/quizitem.component';
     FetchDataComponent,
     QuizComponent,
     StartquizComponent,
-    QuizitemComponent
+    QuizitemComponent,
+    QuizButtonsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

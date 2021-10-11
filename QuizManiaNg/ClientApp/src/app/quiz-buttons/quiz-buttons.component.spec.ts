@@ -1,23 +1,21 @@
-/// <reference path="../../../../node_modules/@types/jasmine/index.d.ts" />
+﻿/// <reference path="../../../../node_modules/@types/jasmine/index.d.ts" />
 import { TestBed, async, ComponentFixture, ComponentFixtureAutoDetect } from '@angular/core/testing';
 import { BrowserModule, By } from "@angular/platform-browser";
-import { QuizButtonsComponent } from '../quiz-buttons/quiz-buttons.component';
-import { QuizComponent } from './quiz.component';
- 
+import { QuizButtonsComponent } from './quiz-buttons.component';
 
-let component: QuizComponent;
-let fixture: ComponentFixture<QuizComponent>;
+let component: QuizButtonsComponent;
+let fixture: ComponentFixture<QuizButtonsComponent>;
 
-describe('quiz component', () => {
+describe('quiz-buttons component', () => {
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-          declarations: [QuizComponent, QuizButtonsComponent ],
+            declarations: [ QuizButtonsComponent ],
             imports: [ BrowserModule ],
             providers: [
                 { provide: ComponentFixtureAutoDetect, useValue: true }
             ]
         });
-        fixture = TestBed.createComponent(QuizComponent);
+        fixture = TestBed.createComponent(QuizButtonsComponent);
         component = fixture.componentInstance;
     }));
 

@@ -1,0 +1,18 @@
+<!--*ngIf="currentindex != questionlength"-->
+<div id="bottom-wizard">
+  <button *ngIf="currentindex > 0"
+          (click)="moveToPrev()"
+          type="button" name="backward" class="backward">
+    Back
+  </button>
+  <button (click)="Submit()"
+          *ngIf="currentindex + 1 == questionlength"
+          type="submit" name="process" class="submit">
+    Submit
+  </button>
+  <button (click)="moveToNext()"
+          *ngIf="currentindex + 1 != questionlength"
+          type="button" name="forward" class="forward">
+    Next
+  </button>
+</div>

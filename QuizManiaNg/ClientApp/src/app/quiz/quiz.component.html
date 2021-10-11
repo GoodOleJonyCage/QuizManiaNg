@@ -5,45 +5,29 @@
         <div style="height: 100%; width: 50%; background-color: rgb(255, 244, 227); border-radius: 40px; text-align: center; display: flex; justify-content: center; align-items: center;">
           <span style="padding: 10px; color: black; font-weight: 900; font-size: 20px;">50%</span>
         </div>
-      </div><div class="">
-        <div id="wizard_container">
-          <input id="website" name="website" type="text" value="true">
-          <div>
-            <div id="middle-wizard">
-              <div class="step">
-                <div>
-                  <div class="quizquestionitem mb-3">
-                    <span class="mr-2">Q)-<span>2/2</span></span>
-                    <h5 class="main_question p-0 m-0">What gives you energy everyday in the morning</h5>
-                  </div>
-                  <div class="form-group radio_questions ">
-                    <label class=" labelflex">
-                      Money
-                      <input name="Group1" type="radio" class="iradio_square-yellow icheck required" value="Money">
-                    </label>
-                  </div>
-                  <div class="form-group radio_questions ">
-                    <label class=" labelflex">
-                      Love
-                      <input name="Group1" type="radio" class="iradio_square-yellow icheck required" value="Love">
-                    </label>
-                  </div>
-                  <div class="form-group radio_questions ">
-                    <label class=" labelflex">
-                      Religion
-                      <input name="Group1" type="radio" class="iradio_square-yellow icheck required" value="Religion">
-                    </label>
-                  </div>
-                </div><div></div>
+      </div>
+      <div id="wizard_container">
+        <input id="website" name="website" type="text" value="true">
+        <div id="middle-wizard">
+          <div class="step" *ngFor="let q of quiz.questions;index as qi">
+            <div *ngIf="currentquestionindex==qi">
+              <div class="quizquestionitem mb-3">
+                <span class="mr-2">Q)&nbsp;<span>{{qi +1}}/{{ quiz.questions.length}}</span></span>
+                <h5 class="main_question p-0 m-0">{{q.name}}</h5>
               </div>
-            </div><div id="bottom-wizard">
-              <button type="button" name="backward"
-                      class="backward">
-                Back
-              </button><button type="submit" name="process" class="submit">Submit</button>
+              <div class="form-group radio_questions " *ngFor="let a of q.answers;index as i">
+                <label [ngClass]="a.showCorrectAnswers ? a.Selected && !a.AnsweredCorrectly ? 'incorrectanswer' : a.AnsweredCorrectly && true ? 'correctanswer' : '' : '' + labelflex">
+                  {{a.name}}
+                  <input name="Group{{qi}}" [(ngModel)]="a.Selected" type="radio" class="iradio_square-yellow icheck required" value={{a.name}}>
+                  <i [ngClass]="a.showCorrectAnswers ? a.Selected && !a.AnsweredCorrectly ? 'incorrectanswer' : a.AnsweredCorrectly && true ? 'correctanswer' : '' : ''"></i>
+                </label>
+              </div>
             </div>
           </div>
         </div>
+        <app-quiz-buttons (onMoveForward)="MoveForward($event)"
+                          (onMoveBack)="MoveBack($event)"
+                          currentindex="0" questionlength="{{quiz.questions.length}}" ></app-quiz-buttons>
       </div>
     </div>
   </div>
