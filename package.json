@@ -1,6 +1,12 @@
 {
   "dependencies": {
     "@angular/router": "^12.2.9",
-    "angular-new-router": "github:angular/router"
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.3",
+    "@mui/material": "^5.0.3",
+    "@mui/styled-engine-sc": "^5.0.3",
+    "angular-new-router": "github:angular/router",
+    "styled-components": "^5.3.1"
   }
 }

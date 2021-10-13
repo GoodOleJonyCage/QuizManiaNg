@@ -1,14 +1,39 @@
-<div class="col-xl-9 col-lg-8 noborder container">
-  <div class="wizard-branch wizard-wrapper">
-    <div class="step wizard-step cumoveToNextQuestionrrent">
-      <div style="height: 50px; width: 100%; background-color: whitesmoke; border-radius: 40px; margin: 50px;">
-        <div style="height: 100%; width: 50%; background-color: rgb(255, 244, 227); border-radius: 40px; text-align: center; display: flex; justify-content: center; align-items: center;">
-          <span style="padding: 10px; color: black; font-weight: 900; font-size: 20px;">50%</span>
-        </div>
+<div class="wizard-branch wizard-wrapper">
+  <div class="step wizard-step cumoveToNextQuestionrrent">
+    <div style="height: 50px; width: 100%; background-color: whitesmoke; border-radius: 40px; margin: 50px;">
+      <div style="height: 100%; width: 50%; background-color: rgb(255, 244, 227); border-radius: 40px; text-align: center; display: flex; justify-content: center; align-items: center;">
+        <span style="padding: 10px; color: black; font-weight: 900; font-size: 20px;">50%</span>
       </div>
-      <div id="wizard_container">
-        <input id="website" name="website" type="text" value="true">
-        <div id="middle-wizard">
+    </div>
+    <div id="wizard_container">
+      <div id="middle-wizard">
+        <div *ngIf="currentquestionindex >= quiz.questions.length else quizitem">
+          <div class="text-center mt-4">
+            <div class="displayflex">
+              <span class="pe-7s-alarm font-size-40 mr-2"></span>
+              <h4>You have completed the Quiz</h4>
+            </div>
+            <h4>
+              Your score is <span class="score-label">{{score}}%</span>
+            </h4>
+          </div>
+          <div class="step" *ngFor="let q of quiz.questions;index as qi">
+            <div>
+              <div class="quizquestionitem mb-3">
+                <span class="mr-2">Q)&nbsp;<span>{{qi +1}}/{{ quiz.questions.length}}</span></span>
+                <h5 class="main_question p-0 m-0">{{q.name}}</h5>
+              </div>
+              <div class="form-group radio_questions " *ngFor="let a of q.answers;index as i">
+                <label [ngClass]="a.selected && !a.answeredCorrectly ? 'incorrectanswer' : a.answeredCorrectly && true ? 'correctanswer' : '' + labelflex">
+                  {{a.name}}
+                  <input name="Group{{qi}}" [checked]="a.selected" type="radio" class="iradio_square-yellow icheck required">
+                  <i [ngClass]="a.selected && !a.answeredCorrectly ? 'icon-cancel-circle color-red incorrectanswer' : a.answeredCorrectly && true ? 'icon-check-outline color-green correctanswer' : '' "></i>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ng-template #quizitem>
           <div class="step" *ngFor="let q of quiz.questions;index as qi">
             <div *ngIf="currentquestionindex==qi">
               <div class="quizquestionitem mb-3">
@@ -16,19 +41,24 @@
                 <h5 class="main_question p-0 m-0">{{q.name}}</h5>
               </div>
               <div class="form-group radio_questions " *ngFor="let a of q.answers;index as i">
-                <label [ngClass]="a.showCorrectAnswers ? a.Selected && !a.AnsweredCorrectly ? 'incorrectanswer' : a.AnsweredCorrectly && true ? 'correctanswer' : '' : '' + labelflex">
+                <label [ngClass]="a.showCorrectAnswers ? a.selected && !a.answeredCorrectly ? 'incorrectanswer' : a.answeredCorrectly && true ? 'correctanswer' : '' : '' + labelflex">
                   {{a.name}}
-                  <input name="Group{{qi}}" [(ngModel)]="a.Selected" type="radio" class="iradio_square-yellow icheck required" value={{a.name}}>
-                  <i [ngClass]="a.showCorrectAnswers ? a.Selected && !a.AnsweredCorrectly ? 'incorrectanswer' : a.AnsweredCorrectly && true ? 'correctanswer' : '' : ''"></i>
+                  <input name="Group{{qi}}" type="radio" class="iradio_square-yellow icheck required"
+                         [checked]="a.selected"
+                         (change)="a.selected=!a.selected" />
                 </label>
               </div>
+              <div *ngIf="q.message.length > 0" class="errorMessageContainer"><div class="errorMessage">{{q.message}} </div></div>
             </div>
           </div>
-        </div>
-        <app-quiz-buttons (onMoveForward)="MoveForward($event)"
-                          (onMoveBack)="MoveBack($event)"
-                          currentindex="0" questionlength="{{quiz.questions.length}}" ></app-quiz-buttons>
+        </ng-template>
       </div>
+      <app-quiz-buttons (onMoveForward)="MoveForward($event)"
+                        (onMoveBack)="MoveBack($event)"
+                        (onSubmitQuiz)="SubmitQuiz($event)"
+                        currentindex="{{currentquestionindex}}"
+                        questionlength="{{quiz.questions.length}}">
+      </app-quiz-buttons>
     </div>
   </div>
 </div>

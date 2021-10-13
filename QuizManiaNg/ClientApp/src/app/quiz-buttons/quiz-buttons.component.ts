@@ -13,27 +13,22 @@ export class QuizButtonsComponent {
 
   @Output() onMoveForward: EventEmitter<number> = new EventEmitter<number>();
   @Output() onMoveBack: EventEmitter<number> = new EventEmitter<number>();
+  @Output() onSubmitQuiz: EventEmitter<number> = new EventEmitter<number>();
   
   public moveToNext() {
-    
-    if (this.currentindex == this.questionlength)
-      return;
-    this.currentindex = this.currentindex + 1;
-
     this.onMoveForward.emit(this.currentindex);
   }
 
   public moveToPrev() {
-    
-    if (this.currentindex == 0)
-      return;
-    this.currentindex = this.currentindex - 1;
-
     this.onMoveBack.emit(this.currentindex);
   }
 
-  public Submit() {
-    //this.indexChanged.emit(this.currentindex);
+  public submitQuiz() {
+    this.onSubmitQuiz.emit(this.currentindex);
+  }
+
+  public GetScore() {
+    return 33;
   }
 
   constructor() {

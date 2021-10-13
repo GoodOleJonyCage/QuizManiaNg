@@ -1,8 +1,7 @@
 import { Component, Inject, ViewChild } from '@angular/core';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { QuizButtonsComponent } from '../quiz-buttons/quiz-buttons.component';
-
 
 @Component({
   selector: 'app-quiz',
@@ -14,12 +13,18 @@ export class QuizComponent {
 
   id: any;
   name: string;
-  quiz: quiz;
   currentquestionindex: any;
+  score: any;
+  quiz: quiz;
   //@ViewChild(QuizButtonsComponent) child: QuizButtonsComponent;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private activatedRoute: ActivatedRoute) {
+  moveToQuizListComponent() {
+     
+    this.router.navigate(['/quizitem']);
+  }
 
+  constructor(private router: Router,http: HttpClient, @Inject('BASE_URL') baseUrl: string, private activatedRoute: ActivatedRoute) {
+     
     this.activatedRoute.queryParams.subscribe(
       params => {
         this.id = params['id'];
@@ -31,45 +36,74 @@ export class QuizComponent {
     let params = new HttpParams();
     params = params.append('quizid', this.id);
 
-    http.get<quiz>(baseUrl + 'quiz/quizitems', { headers,params })
+    http.get<quiz>(baseUrl + 'quiz/quizitems', { headers, params })
       .subscribe(result => {
         this.quiz = result;
         this.currentquestionindex = 0;
-        console.log(this.quiz );
       }, error => console.error(error));
   }
 
   public MoveForward(e: any) {
-    console.log('forward');
-    console.log(e);
-    //if (this.currentindex == this.questionlength)
-    //  return;
-    //this.currentindex =  this.currentindex   + 1;
+    let returnValue;
+    let question = this.quiz.questions[e];
+    question.message = '';
+    var questionAnswered = question.answers.filter(a => a.selected === true);
+
+    if (questionAnswered.length == 0) {
+      question.message = 'At least one answer required';
+      returnValue= false;
+    }
+    else {
+      this.currentquestionindex = this.currentquestionindex + 1;
+      returnValue = true;
+    }
+    return returnValue;
   }
   public MoveBack(e: any) {
-    console.log('back');
-    console.log(e);
-    //if (this.currentindex == this.questionlength)
-    //  return;
-    //this.currentindex =  this.currentindex   + 1;
+    if (this.currentquestionindex == 0)
+      return;
+    this.currentquestionindex = this.currentquestionindex - 1;
   }
 
-  public moveToPrev(data) {
-    console.log(data);
-    //if (this.currentindex == 0)
-    //  return;
-    //this.currentindex = this.currentindex - 1;
+  public SubmitQuiz(e: any) {
+
+    if (this.MoveForward(e)) {
+
+      var answeredCorrectly = 0;
+      for (var i = 0; i < this.quiz.questions.length; i++) {
+        for (var j = 0; j < this.quiz.questions[i].answers.length; j++) {
+          if (
+            this.quiz.questions[i].answers[j].selected &&
+            this.quiz.questions[i].answers[j].answeredCorrectly &&
+            true
+          ) {
+            answeredCorrectly++;
+            break;
+          }
+        }
+      }
+      this.score = Math.trunc((answeredCorrectly / this.quiz.questions.length) * 100);
+      //save quiz to db and redirect
+      this.moveToQuizListComponent();
+    }
+    console.log(this.quiz);
   }
+}
+
+interface answer {
+  selected: any;
+  answeredCorrectly: any;
 }
 
 interface question {
   name: string;
-  answers: [];
+  answers: answer[];
+  message: string;
 }
 
 interface quiz {
-  id      : 0 ,
-  name    : string;
+  id: 0;
+  name: string;
   questions: question[];
 }
- 
+
