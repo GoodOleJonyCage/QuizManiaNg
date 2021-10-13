@@ -2,6 +2,7 @@ import { Component, Inject, ViewChild } from '@angular/core';
 import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizButtonsComponent } from '../quiz-buttons/quiz-buttons.component';
+import { ProgressBarComponent } from '../progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-quiz',
@@ -12,19 +13,18 @@ import { QuizButtonsComponent } from '../quiz-buttons/quiz-buttons.component';
 export class QuizComponent {
 
   id: any;
-  name: string;
-  currentquestionindex: any;
   score: any;
+  baseUrl: any;
+  currentquestionindex: any;
+  name: string;
   quiz: quiz;
-  //@ViewChild(QuizButtonsComponent) child: QuizButtonsComponent;
-
-  moveToQuizListComponent() {
-     
-    this.router.navigate(['/quizitem']);
-  }
+  http: HttpClient;
 
   constructor(private router: Router,http: HttpClient, @Inject('BASE_URL') baseUrl: string, private activatedRoute: ActivatedRoute) {
-     
+
+    this.baseUrl = baseUrl;
+    this.http = http;
+
     this.activatedRoute.queryParams.subscribe(
       params => {
         this.id = params['id'];
@@ -36,7 +36,7 @@ export class QuizComponent {
     let params = new HttpParams();
     params = params.append('quizid', this.id);
 
-    http.get<quiz>(baseUrl + 'quiz/quizitems', { headers, params })
+    this.http.get<quiz>(baseUrl + 'quiz/quizitems', { headers, params })
       .subscribe(result => {
         this.quiz = result;
         this.currentquestionindex = 0;
@@ -59,16 +59,28 @@ export class QuizComponent {
     }
     return returnValue;
   }
+
   public MoveBack(e: any) {
     if (this.currentquestionindex == 0)
       return;
     this.currentquestionindex = this.currentquestionindex - 1;
   }
 
+  public SaveQuiz() {
+
+    this.http.post<any>(this.baseUrl + 'quiz/submitquiz',
+      {
+        quizid: this.quiz.id,
+        questionlist: this.quiz.questions
+      })
+      .subscribe(data => {
+        //console.log(data);
+      });
+  }
+
   public SubmitQuiz(e: any) {
 
     if (this.MoveForward(e)) {
-
       var answeredCorrectly = 0;
       for (var i = 0; i < this.quiz.questions.length; i++) {
         for (var j = 0; j < this.quiz.questions[i].answers.length; j++) {
@@ -83,11 +95,14 @@ export class QuizComponent {
         }
       }
       this.score = Math.trunc((answeredCorrectly / this.quiz.questions.length) * 100);
-      //save quiz to db and redirect
-      this.moveToQuizListComponent();
+      this.SaveQuiz();
     }
-    console.log(this.quiz);
   }
+
+  public moveToQuizListComponent() {
+    this.router.navigate(['/quizitem']);
+  }
+
 }
 
 interface answer {

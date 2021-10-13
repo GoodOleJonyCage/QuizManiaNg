@@ -16,6 +16,7 @@ import { QuizComponent } from 'src/app/quiz/quiz.component'
 import { StartquizComponent } from 'src/app/startquiz/startquiz.component'
 import { QuizitemComponent } from './quizitem/quizitem.component';
 import { QuizButtonsComponent } from './quiz-buttons/quiz-buttons.component';
+import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { QuizButtonsComponent } from './quiz-buttons/quiz-buttons.component';
     QuizComponent,
     StartquizComponent,
     QuizitemComponent,
-    QuizButtonsComponent
+    QuizButtonsComponent,
+    ProgressBarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

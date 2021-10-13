@@ -1,10 +1,6 @@
 <div class="wizard-branch wizard-wrapper">
   <div class="step wizard-step cumoveToNextQuestionrrent">
-    <div style="height: 50px; width: 100%; background-color: whitesmoke; border-radius: 40px; margin: 50px;">
-      <div style="height: 100%; width: 50%; background-color: rgb(255, 244, 227); border-radius: 40px; text-align: center; display: flex; justify-content: center; align-items: center;">
-        <span style="padding: 10px; color: black; font-weight: 900; font-size: 20px;">50%</span>
-      </div>
-    </div>
+    <app-progress-bar></app-progress-bar>
     <div id="wizard_container">
       <div id="middle-wizard">
         <div *ngIf="currentquestionindex >= quiz.questions.length else quizitem">
@@ -31,6 +27,11 @@
                 </label>
               </div>
             </div>
+          </div>
+          <div id="bottom-wizard">
+            <button (click)="moveToQuizListComponent()" class="forward">
+              Back to Quizes
+            </button>
           </div>
         </div>
         <ng-template #quizitem>
