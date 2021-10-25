@@ -186,50 +186,72 @@ namespace QuizManiaNg.Controllers
 
         [Route("addquestion")]
         [HttpPost]
-        public string AddQuestion([FromBody] System.Text.Json.JsonElement question)
+        public JsonVM AddQuestion([FromBody] System.Text.Json.JsonElement question)
         {
+            JsonVM vm = new JsonVM();
+
             string message = string.Empty;
             string questionText = question.GetProperty("question").GetString();
-            try
+            if (string.IsNullOrEmpty(questionText))
             {
-                using (QuizMasterContext context = new QuizMasterContext())
+                vm.Message = "Vakue Required";
+                vm.Errored = true;
+            }
+            else
+            {
+                try
                 {
-                    context.Question.Add(new Question()
+                    using (QuizMasterContext context = new QuizMasterContext())
                     {
-                        Name = questionText
-                    });
-                    context.SaveChanges();
+                        context.Question.Add(new Question()
+                        {
+                            Name = questionText
+                        });
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception exc)
+                {
+                    vm.Message = exc.Message;
+                    vm.Errored = true;
                 }
             }
-            catch (Exception exc)
-            {
-                message = exc.Message;
-            }
-            return message;
+            return vm;
         }
 
         [Route("addanswer")]
         [HttpPost]
-        public string AddAnswer([FromBody] System.Text.Json.JsonElement answer)
+        public JsonVM AddAnswer([FromBody] System.Text.Json.JsonElement answer)
         {
+            JsonVM vm = new JsonVM();
+
             string message = string.Empty;
             string answerText = answer.GetProperty("answer").GetString();
-            try
+            if (string.IsNullOrEmpty(answerText))
             {
-                using (QuizMasterContext context = new QuizMasterContext())
+                vm.Message = "Vakue Required";
+                vm.Errored = true;
+            }
+            else
+            {
+                try
                 {
-                    context.Answer.Add(new Answer()
+                    using (QuizMasterContext context = new QuizMasterContext())
                     {
-                        Name = answerText
-                    });
-                    context.SaveChanges();
+                        context.Answer.Add(new Answer()
+                        {
+                            Name = answerText
+                        });
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception exc)
+                {
+                    vm.Message = exc.Message;
+                    vm.Errored = true;
                 }
             }
-            catch (Exception exc)
-            {
-                message = exc.Message;
-            }
-            return message;
+            return vm;
         }
 
         [Route("submitquiz")]

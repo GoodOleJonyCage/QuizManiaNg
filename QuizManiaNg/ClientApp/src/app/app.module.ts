@@ -17,6 +17,7 @@ import { StartquizComponent } from 'src/app/startquiz/startquiz.component'
 import { QuizitemComponent } from './quizitem/quizitem.component';
 import { QuizButtonsComponent } from './quiz-buttons/quiz-buttons.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
+import { AdminquestionanswerComponent } from 'src/app/adminquestionanswer/adminquestionanswer.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
     StartquizComponent,
     QuizitemComponent,
     QuizButtonsComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    AdminquestionanswerComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,6 +45,8 @@ import { ProgressBarComponent } from './progress-bar/progress-bar.component';
       { path: 'quizitem', component: QuizitemComponent, pathMatch: 'full' },
       { path: 'startquiz', component: StartquizComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'admin', component: AdminquestionanswerComponent },
+      
     ])
   ],
   providers: [
