@@ -18,6 +18,9 @@ import { QuizitemComponent } from './quizitem/quizitem.component';
 import { QuizButtonsComponent } from './quiz-buttons/quiz-buttons.component';
 import { ProgressBarComponent } from './progress-bar/progress-bar.component';
 import { AdminquestionanswerComponent } from 'src/app/adminquestionanswer/adminquestionanswer.component';
+import { AdminquizComponent } from './adminquiz/adminquiz.component';
+import { AdminComponent } from './admin/admin.component';
+import { AdminQuizNameComponent } from './admin-quiz-name/admin-quiz-name.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,10 @@ import { AdminquestionanswerComponent } from 'src/app/adminquestionanswer/adminq
     QuizitemComponent,
     QuizButtonsComponent,
     ProgressBarComponent,
-    AdminquestionanswerComponent
+    AdminquestionanswerComponent,
+    AdminquizComponent,
+    AdminComponent,
+    AdminQuizNameComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,7 +51,10 @@ import { AdminquestionanswerComponent } from 'src/app/adminquestionanswer/adminq
       { path: 'quizitem', component: QuizitemComponent, pathMatch: 'full' },
       { path: 'startquiz', component: StartquizComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'admin', component: AdminquestionanswerComponent },
+      { path: 'admin', component: AdminComponent },
+      { path: 'adminqas', component: AdminquestionanswerComponent },
+      { path: 'adminquiz', component: AdminquizComponent },
+      { path: 'adminquizname', component: AdminQuizNameComponent },
       
     ])
   ],

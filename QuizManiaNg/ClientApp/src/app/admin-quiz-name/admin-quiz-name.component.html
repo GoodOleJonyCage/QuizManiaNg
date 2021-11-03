@@ -1,0 +1,25 @@
+<div class="col-xl-9 col-lg-8 noborder container">
+  <div class="wizard-branch wizard-wrapper">
+    <div class="step wizard-step cumoveToNextQuestionrrent">
+      <div id="wizard_container">
+        <div>
+          <div id="middle-wizard">
+            <div class="step">
+              <h5 class="main_question mb-5">Enter Quiz Name</h5>
+              <input
+                     [(ngModel)]="name"
+                     type="text" class="form-control">
+            </div>
+          </div>
+          <div class="text-center text-danger">{{message}}</div>
+          <div id="bottom-wizard">
+              <button class="button" type="button" (click)="moveToNextPage()">
+                <i class="icon-forward-2 text-success"></i>
+                Next
+              </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

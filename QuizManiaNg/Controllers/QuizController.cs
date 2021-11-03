@@ -305,10 +305,11 @@ namespace QuizManiaNg.Controllers
                 var list = param.GetProperty("questionanswers");
                 for (int i = 0; i < list.GetArrayLength(); i++)
                 {
-                    var id = Int32.Parse(list[i].GetProperty("id").ToString());
-                    var name = list[i].GetProperty("name").ToString();
+                    var question = list[i].GetProperty("question");
+                    var id = Int32.Parse(question.GetProperty("id").ToString());
+                    var name = question.GetProperty("name").ToString();
                     var answers = list[i].GetProperty("answers");
-
+                   
                     List<ViewModels.Answer> ansList = new List<ViewModels.Answer>();
                     for (int j = 0; j < answers.GetArrayLength(); j++)
                     {
