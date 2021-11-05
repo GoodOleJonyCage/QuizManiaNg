@@ -18,7 +18,7 @@ export class AdminQuizNameComponent {
       this.message = "Please enter Quiz name";
     else {
       this.message = "";
-      this.router.navigate(['/adminquiz', { name: this.name }]);
+      this.router.navigate(['/adminquiz', { id:0, name: this.name }]);
     }
   }
 

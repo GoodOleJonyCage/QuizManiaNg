@@ -22,6 +22,10 @@ export class AdminquizComponent {
   addQAToQuizMessage: string;
   quizName: string;
 
+  saveQuizMessage: string;
+
+  quizID: number;
+
   baseUrl: any;
   http: HttpClient;
 
@@ -89,16 +93,41 @@ export class AdminquizComponent {
 
   public saveQuiz() {
 
+
+    if (this.quizItems.length == 0) {
+      this.saveQuizMessage = "At least one question/answer must be added";
+      return;
+    }
+    else {
+      this.saveQuizMessage = "";
+    }
+
     this.http.post<any>(this.baseUrl + 'quiz/savequiz',
       {
         questionanswers: this.quizItems,
-        id: 0,
+        id: this.quizID,
         quizname: this.quizName
       }
     )
       .subscribe(data => {
         this.router.navigate(['/quizitem']);
       });
+  }
+
+  public loadSavedItems() {
+    if (this.quizID > 0) {
+      this.http.get<any>(this.baseUrl + 'quiz/quizitems?quizid=' + this.quizID)
+        .subscribe(data => {
+          data.questions.map((q, index) => {
+            let newquizitem: QuizItem = <QuizItem>{};
+            newquizitem.question = { id: q.qid, name: q.name };
+            newquizitem.answers = q.answers.map(function (a, index) {
+              return { id: a.aid, name: a.name, iscorrect : a.answeredCorrectly }
+            });
+            this.quizItems.push(newquizitem);
+          });
+        });
+    }
   }
 
   public answerChanged(answer) {
@@ -114,7 +143,9 @@ export class AdminquizComponent {
     this.quizItems = [];
 
     activatedroute.params.subscribe(params => {
+      this.quizID = params['id'];
       this.quizName = params['name'];
+      this.loadSavedItems();
     });
   }
 }

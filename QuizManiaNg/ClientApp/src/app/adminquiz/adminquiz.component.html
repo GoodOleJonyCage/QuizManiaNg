@@ -28,8 +28,7 @@
   <div class="text-center">
     <div class="quizansweritem" *ngFor="let selecteda of selectedAnswers; let i = index">
       <span class="mr-2">A-{{i+1}})</span>
-      <input
-             (change)="answerChanged(selecteda)"
+      <input (change)="answerChanged(selecteda)"
              type="radio" name="rdo_selectedanswers" class="mr-2" value="false">
       <span class="label">{{selecteda.name}}</span>
     </div>
@@ -54,11 +53,17 @@
     </div>
     <div class="quizansweritem ml-2" *ngFor="let a of qi.answers;let ansIndex = index;">
       <span class="ml-2">A-{{ansIndex+1}})</span>
-      <div class="ml-2">{{a.name}}</div>
+      <div class="ml-2">
+        {{a.name}}
+        <i *ngIf="a.iscorrect" class="icon-check-outline color-green correctanswer"></i>
+      </div>
     </div>
   </div>
 </div>
 <div class="mt-2 text-center">
+  <div class="text-danger text-center mt-2 mb-2">
+    {{saveQuizMessage}}
+  </div>
   <button class="button" (click)="saveQuiz()">
     <i class="text-success icon-hdd"></i>Save Quiz
   </button>
